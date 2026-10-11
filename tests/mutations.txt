@@ -1,0 +1,564 @@
+an unreadable list status is ignored
+---
+        if fetched[0] != 200:
+            problems.append(f"{label}_http_{fetched[0]}")
+---
+        if False:
+            problems.append(f"{label}_http_{fetched[0]}")
+===
+a missing or differing publication time is accepted
+---
+    if published == "" or published != _published(alt_fetch[1]):
+---
+    if False:
+===
+a stale list is accepted
+---
+        if not 0 <= age <= MAX_LIST_AGE_DAYS:
+---
+        if False:
+===
+a list from the future is accepted
+---
+        if not 0 <= age <= MAX_LIST_AGE_DAYS:
+---
+        if not age <= MAX_LIST_AGE_DAYS:
+===
+the list age limit is a day too long
+---
+MAX_LIST_AGE_DAYS = 30
+---
+MAX_LIST_AGE_DAYS = 31
+===
+the list age limit is a day too short
+---
+MAX_LIST_AGE_DAYS = 30
+---
+MAX_LIST_AGE_DAYS = 29
+===
+the list's age is not recorded
+---
+summary["list_age_days"] = max(age, 0)
+---
+summary["list_age_days"] = 0
+===
+a truncated entry list is accepted
+---
+    if len(sdn) < MIN_SDN_ROWS:
+---
+    if False:
+===
+a truncated alias list is accepted
+---
+    if len(alt) < MIN_ALT_ROWS:
+---
+    if False:
+===
+malformed rows are tolerated
+---
+    if any(r != ["\x1a"] for r in rest):
+---
+    if False:
+===
+a csv error is not caught
+---
+    except csv.Error:
+        return None, f"{label}_unparseable"
+---
+    except ZeroDivisionError:
+        return None, f"{label}_unparseable"
+===
+an entry id need not be a number
+---
+if not r[0].strip().isdigit() or r[0] in entries:
+---
+if r[0] in entries:
+===
+a duplicate entry id is accepted
+---
+if not r[0].strip().isdigit() or r[0] in entries:
+---
+if not r[0].strip().isdigit():
+===
+an alias of an unknown entry is accepted
+---
+        if r[0] not in entries:
+---
+        if False:
+===
+a bad month is read as a month
+---
+if m is None or m.group(2).lower() not in MONTHS:
+---
+if m is None:
+===
+the month is off by one
+---
+month = MONTHS.index(m.group(2).lower()) + 1
+---
+month = MONTHS.index(m.group(2).lower()) + 0
+===
+the header's timezone is not required
+---
+[A-Za-z]{3}, (\d{2}) ([A-Za-z]{3}) (\d{4}) (\d{2}):(\d{2}):(\d{2}) GMT
+---
+[A-Za-z]{3}, (\d{2}) ([A-Za-z]{3}) (\d{4}) (\d{2}):(\d{2}):(\d{2}).*
+===
+special letters are not folded
+---
+text = unicodedata.normalize("NFKD", text.translate(SPECIAL))
+---
+text = unicodedata.normalize("NFKD", text)
+===
+accents are not stripped
+---
+return "".join(c for c in text if not unicodedata.combining(c)).casefold()
+---
+return text.casefold()
+===
+case is not folded
+---
+return "".join(c for c in text if not unicodedata.combining(c)).casefold()
+---
+return "".join(c for c in text if not unicodedata.combining(c))
+===
+single letters are words
+---
+if t not in STOP and len(t) > 1}
+---
+if t not in STOP and len(t) > 0}
+===
+legal forms are words
+---
+if t not in STOP and len(t) > 1}
+---
+if len(t) > 1}
+===
+a word in a few names is not distinctive
+---
+return 8 if df <= 4 else 4 if df <= 40 else 2 if df <= 400 else 1
+---
+return 8 if df <= 4 else 4 if df <= 40 else 2 if df <= 4000 else 1
+===
+every word is distinctive
+---
+return 8 if df <= 4 else 4 if df <= 40 else 2 if df <= 400 else 1
+---
+return 8 if df <= 4 else 4 if df <= 40 else 2
+===
+a substitution may be any number of letters
+---
+return sum(x != y for x, y in zip(a, b)) == 1
+---
+return sum(x != y for x, y in zip(a, b)) <= 3
+===
+short words have spelling variants
+---
+if min(len(a), len(b)) >= 7 and _edit1(a, b):
+---
+if min(len(a), len(b)) >= 3 and _edit1(a, b):
+===
+a skeleton of any length is trusted
+---
+return min(len(a), len(b)) >= FUZZY_MIN and len(_skeleton(a)) >= 4 and _skeleton(a) == _skeleton(b)
+---
+return min(len(a), len(b)) >= FUZZY_MIN and _skeleton(a) == _skeleton(b)
+===
+the skeleton keeps vowels
+---
+if c in "aeiouyh":
+---
+if c in "":
+===
+q is not k in a skeleton
+---
+t = t.replace("ph", "f").replace("q", "k")
+---
+t = t.replace("ph", "f")
+===
+base58 addresses are compared without case
+---
+return address.lower() if re.fullmatch(r"0x[0-9a-fA-F]{40}", address) else address
+---
+return address.lower()
+===
+hex addresses are compared with case
+---
+return address.lower() if re.fullmatch(r"0x[0-9a-fA-F]{40}", address) else address
+---
+return address
+===
+short addresses are not read from remarks
+---
+([A-Z0-9]{2,8}) ([A-Za-z0-9]{20,100})")
+---
+([A-Z0-9]{2,8}) ([A-Za-z0-9]{40,100})")
+===
+generic names may be an exact match
+---
+    exact = [] if generic else [r for r in ranked if r[0] == 2]
+---
+    exact = [r for r in ranked if r[0] == 2]
+===
+nothing is generic
+---
+    generic = not any(w >= 2 for w in weights.values())
+---
+    generic = False
+===
+everything is generic
+---
+    generic = not any(w >= 2 for w in weights.values())
+---
+    generic = True
+===
+a strong match needs no overlap
+---
+r[1] >= STRONG_SUBJECT and r[2] >= STRONG_ENTRY and r[3] >= 2]
+---
+r[1] >= 0 and r[2] >= STRONG_ENTRY and r[3] >= 2]
+===
+a strong match need not cover its entry
+---
+r[1] >= STRONG_SUBJECT and r[2] >= STRONG_ENTRY and r[3] >= 2]
+---
+r[1] >= STRONG_SUBJECT and r[2] >= 0 and r[3] >= 2]
+===
+one shared word is a strong match
+---
+and r[2] >= STRONG_ENTRY and r[3] >= 2]
+---
+and r[2] >= STRONG_ENTRY and r[3] >= 1]
+===
+the strong threshold is unreachable
+---
+STRONG_SUBJECT = 90
+---
+STRONG_SUBJECT = 101
+===
+nothing resembling a name is reviewed
+---
+    review = [r for r in ranked if r[0] < 2 and r[7] not in strong_ids and r[6] and r[4] >= REVIEW_SUBJECT]
+---
+    review = []
+===
+every resemblance is reviewed
+---
+and r[6] and r[4] >= REVIEW_SUBJECT]
+---
+and r[6] and r[4] >= 0]
+===
+a resemblance need not share a distinctive word
+---
+r[7] not in strong_ids and r[6] and r[4] >= REVIEW_SUBJECT]
+---
+r[7] not in strong_ids and r[4] >= REVIEW_SUBJECT]
+===
+a strong entry is reviewed as well
+---
+r[0] < 2 and r[7] not in strong_ids and r[6]
+---
+r[0] < 2 and r[6]
+===
+the review limit is unlimited
+---
+MAX_REVIEW = 8
+---
+MAX_REVIEW = 100
+===
+an address hit is not recorded
+---
+        summary["address_hits"] = summary["address_hits"][:MAX_HITS]
+---
+        summary["address_hits"] = []
+===
+an address screen is skipped
+---
+    if subject["address"]:
+        for ent, currency, address in
+---
+    if False:
+        for ent, currency, address in
+===
+a name screen is skipped
+---
+    if subject["name"]:
+        screen = _name_screen
+---
+    if False:
+        screen = _name_screen
+===
+the reader is called when plain code refuses
+---
+    if summary["problems"] or not summary["review"] or summary["review_total"] > MAX_REVIEW:
+        return None
+---
+    if False:
+        return None
+===
+the reader is called for too many entries
+---
+or summary["review_total"] > MAX_REVIEW:
+        return None
+---
+:
+        return None
+===
+the reader is called with nothing to review
+---
+if summary["problems"] or not summary["review"] or
+---
+if summary["problems"] or
+===
+the reader may name an entry it was not shown
+---
+    return {"possible": ids} if all(i in shown for i in ids) else None
+---
+    return {"possible": ids}
+===
+the reader may answer anything
+---
+    if not isinstance(result, dict) or not isinstance(result.get("possible"), list):
+        return None
+---
+    if not isinstance(result, dict):
+        return None
+===
+a reader exception escapes
+---
+    except Exception:
+        return None  # a model that did not return JSON
+---
+    except ZeroDivisionError:
+        return None  # a model that did not return JSON
+===
+an unreadable reader answer is not asked again
+---
+for attempt in range(READ_ATTEMPTS):  # an unreadable answer
+---
+for attempt in range(1):  # an unreadable answer
+===
+the retry note is dropped
+---
+result = _ask(prompt + (RETRY_NOTE if attempt else ""), shown)
+---
+result = _ask(prompt, shown)
+===
+a reading's shape is not checked
+---
+if not (isinstance(reading, dict) and set(reading) == {"possible"} and isinstance(reading["possible"], list)):
+        return False
+---
+if not isinstance(reading, dict):
+        return False
+===
+a reading's ids need not be ones shown
+---
+    return all(i in shown for i in reading["possible"])
+---
+    return True
+===
+an address match can be cleared
+---
+    if summary["address_hits"]:
+        return ["ADDRESS_MATCH"
+---
+    if False:
+        return ["ADDRESS_MATCH"
+===
+a name match can be cleared
+---
+    if summary["exact_hits"]:
+        return ["NAME_MATCH"
+---
+    if False:
+        return ["NAME_MATCH"
+===
+a strong match can be cleared
+---
+    if summary["strong_hits"]:
+        return ["POSSIBLE_MATCH", ["the name shares
+---
+    if False:
+        return ["POSSIBLE_MATCH", ["the name shares
+===
+a generic name is cleared
+---
+    if summary["generic"]:
+        return ["UNDETERMINED", ["name_too_generic_to_screen"]]
+---
+    if False:
+        return ["UNDETERMINED", ["name_too_generic_to_screen"]]
+===
+too many resemblances are cleared
+---
+    if summary["review_total"] > MAX_REVIEW:
+        return ["POSSIBLE_MATCH"
+---
+    if False:
+        return ["POSSIBLE_MATCH"
+===
+an unreadable reader is cleared
+---
+        if reading is None:
+            return ["UNDETERMINED", ["reader_unavailable"]]
+---
+        if reading is None:
+            return ["NO_MATCH", ["reader_unavailable"]]
+===
+a reader that escalates is ignored
+---
+        if reading["possible"]:
+            return ["POSSIBLE_MATCH"
+---
+        if False:
+            return ["POSSIBLE_MATCH"
+===
+problems do not stop a verdict
+---
+    if summary["problems"]:
+        return ["UNDETERMINED", list(summary["problems"])]
+---
+    if False:
+        return ["UNDETERMINED", list(summary["problems"])]
+===
+the matches behind a verdict are not recorded
+---
+    if summary["address_hits"]:
+        return [{"ent_num"
+---
+    if False:
+        return [{"ent_num"
+===
+the reader's escalation is not recorded
+---
+    if reading and reading["possible"]:
+        return [h for h in summary["review"]
+---
+    if False:
+        return [h for h in summary["review"]
+===
+an invalid subject id is accepted
+---
+_require(re.fullmatch(r"[A-Za-z0-9_-]{1,32}", subject_id) is not None,
+---
+_require(True,
+===
+a subject can be registered twice
+---
+        _require(subject_id not in self.subjects, "subject_id already registered")
+---
+        _require(True, "subject_id already registered")
+===
+an empty subject is accepted
+---
+        _require(name != "" or address != "", "give a name, an address, or both")
+---
+        _require(True, "give a name, an address, or both")
+===
+any name text is accepted
+---
+_require(re.fullmatch(r"[\w .,&'()/\-]{2,200}", name) is not None,
+---
+_require(True,
+===
+a name with no distinctive word is accepted
+---
+            _require(any(len(t) >= 3 for t in _tokens(name)),
+---
+            _require(True,
+===
+any address text is accepted
+---
+            _require(re.fullmatch(r"[A-Za-z0-9]{20,100}", address) is not None,
+---
+            _require(True,
+===
+a label may be empty or huge
+---
+        _require(1 <= len(label) <= MAX_LABEL_LEN,
+---
+        _require(True,
+===
+screening validators skip comparing the facts
+---
+            if leader["facts"] != mine["summary"]:
+                return False
+---
+            if False:
+                return False
+===
+screening validators accept a malformed reading
+---
+            if not _reading_shape_ok(theirs, _reading_ids(mine["summary"])):
+                return False
+---
+            if False:
+                return False
+===
+screening validators accept a reading of nothing
+---
+            if theirs is not None and (mine["summary"]["problems"] or not mine["summary"]["review"]
+                                       or mine["summary"]["review_total"] > MAX_REVIEW):
+                return False  # no reading of nothing
+---
+            if False:
+                return False  # no reading of nothing
+===
+screening validators ignore their own reader
+---
+            return _decide(mine["summary"], theirs)[0] == _decide(mine["summary"], my_reading)[0]
+---
+            return True
+===
+the verdict is taken from the leader
+---
+verdict, reasons = _decide(facts, reading)
+---
+verdict, reasons = result.get("verdict", "NO_MATCH"), []
+===
+a history is not chained
+---
+        record.previous_id = stored.latest_id if stored.check_count > 0 else u32(0)
+---
+        record.previous_id = u32(0)
+===
+the list date is not recorded
+---
+        record.list_published = facts["list_published"]
+---
+        record.list_published = ""
+===
+a match is cleared
+---
+        return c.verdict == "NO_MATCH" and 0 <= age <= max_age_seconds and c.list_age_days <= max_list_age_days
+---
+        return c.verdict != "UNDETERMINED" and 0 <= age <= max_age_seconds and c.list_age_days <= max_list_age_days
+===
+a stale screening is cleared
+---
+c.verdict == "NO_MATCH" and 0 <= age <= max_age_seconds and c.list_age_days
+---
+c.verdict == "NO_MATCH" and 0 <= age and c.list_age_days
+===
+a screening from the future is cleared
+---
+c.verdict == "NO_MATCH" and 0 <= age <= max_age_seconds
+---
+c.verdict == "NO_MATCH" and age <= max_age_seconds
+===
+a stale list is cleared
+---
+age <= max_age_seconds and c.list_age_days <= max_list_age_days
+---
+age <= max_age_seconds
+===
+a subject never screened is cleared
+---
+        if subject_id not in self.subjects or self.subjects[subject_id].check_count == 0:
+            return False
+        c = self.checks
+---
+        if False:
+            return False
+        c = self.checks

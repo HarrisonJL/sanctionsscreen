@@ -1,0 +1,19 @@
+{
+ "captured": "2026-10-11",
+ "fixtures": {
+  "alt": {
+   "bytes": 1063323,
+   "last_modified": "Fri, 09 Oct 2026 14:01:35 GMT",
+   "sha256": "ff6075fc9635c5034475fa49c0c2e0e03300e1c9375771d75f99c4d4bf799c1b",
+   "status": 200,
+   "url": "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/ALT.CSV"
+  },
+  "sdn": {
+   "bytes": 5727333,
+   "last_modified": "Fri, 09 Oct 2026 14:01:35 GMT",
+   "sha256": "64be7a7991059f59a2ebb43bc5dcc7e2951e1e27cbed8cbe41b0231b3a161946",
+   "status": 200,
+   "url": "https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/SDN.CSV"
+  }
+ }
+}

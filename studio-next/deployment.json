@@ -1,0 +1,27 @@
+{
+ "date": "2026-10-11",
+ "screen": {
+  "address": "0x31c89cA668Cf19E1dA583f983d77d4848b25522B",
+  "deploy_tx": "0xa4552b28e49c21952c545878e5f16d4d0474b8bc9302fef8c16bed268ce0da4e",
+  "sha256": "c88f39d117a4ed448fc6c2ca8f464bde3aa34a35b92ebad60e9604d77b8b485c"
+ },
+ "gate": {
+  "address": "0x71392Ddc9A39ba977939cbDa8f7b6e5294387498",
+  "deploy_tx": "0xed50c3243ba8be3aca9f8e9759b7dc1f771d241ec6038b2410530121041b67f9",
+  "kyb": "0x962Ee34181C4981Be098527a4B2d8Fe0Ba31D8fB",
+  "sha256": "5af804c07e291399ccdeceea22fd8233c5f8516b8c7466a554d1a003d7594860"
+ },
+ "found_live": [
+  "**Plain code caught what a lookup would miss, and the validators agreed on every one.** A Monero address and a checksummed Ethereum address (Valerian Labs) matched an SDN entry's remarks with no name given, and a clean name (`Tesco PLC`) carrying a Tron address from Bank Markazi's remarks was still an `ADDRESS_MATCH`.",
+  "**The reader only escalated, and only what plain code could not settle.** `Mahan Airlines` (the entry is `MAHAN AIR`) and `Kadhafi Muammar` (the entry is `QADHAFI, Muammar`) have no shared exact name, so plain code listed the resembling entries and the validators' LLMs each picked the same one (#12927, #12606): `POSSIBLE_MATCH`, never a clearance. `Apple Inc` and `Banco Santander SA` resembled 1 and 2 entries, and every validator dismissed them: `NO_MATCH`.",
+  "**What it cannot decide stays undecided.** `Trading Company Limited` has no distinctive word, so it is `UNDETERMINED` and the gate refuses it; `Sberbank Group` resembles 19 entries, more than a reader may be asked about, so it is a `POSSIBLE_MATCH` without asking anyone.",
+  "**The gate asks both controls, every time.** CounterpartyGate onboarded a company only when KYB Desk approved it **and** SanctionsScreen cleared its paired subject; each of `NAME_MATCH`, `ADDRESS_MATCH`, `POSSIBLE_MATCH` and `UNDETERMINED` was refused with SanctionsScreen's verdict in the message, and a company KYB Desk does not approve was refused with the sanctions subject clean."
+ ],
+ "superseded": [
+  {
+   "contract": "SanctionsScreen (test instance)",
+   "address": "0xA24D7bEF58E85F98e68F66d5b1d05fB578dC855A",
+   "why": "Deployed while the matching rules were still being tuned against the real list; four probe subjects only. Replaced by a clean deployment of the final code."
+  }
+ ]
+}

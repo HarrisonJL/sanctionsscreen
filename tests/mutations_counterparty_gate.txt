@@ -1,0 +1,35 @@
+anyone can onboard
+---
+        _require(gl.message.sender_address == self.owner, "only the owner can onboard counterparties")
+---
+        _require(True, "only the owner can onboard counterparties")
+===
+anyone can pay
+---
+        _require(gl.message.sender_address == self.owner, "only the owner can pay counterparties")
+---
+        _require(True, "only the owner can pay counterparties")
+===
+a zero payment is accepted
+---
+        _require(amount > 0, "amount must be positive")
+---
+        _require(True, "amount must be positive")
+===
+a company that was never onboarded can be paid
+---
+        _require(company_number in self.counterparties, f"{company_number!r} is not onboarded")
+---
+        _require(True, f"{company_number!r} is not onboarded")
+===
+a zero freshness limit is accepted
+---
+        _require(max_age_seconds > 0, "max_age_seconds must be positive")
+---
+        _require(True, "max_age_seconds must be positive")
+===
+a zero list-age limit is accepted
+---
+        _require(max_list_age_days > 0, "max_list_age_days must be positive")
+---
+        _require(True, "max_list_age_days must be positive")
